@@ -44,13 +44,16 @@ namespace Excel2TextDiff
 
             if (options.IsTransform)
             {
-                if (options.Files.Count != 2)
+                // Console.Write($"filse count " + options.Files.Count + " " + string.Join(",", options.Files));
+                if (options.Files.Count == 1)
+                    writer.TransformToTextAndSave(options.Files[0], null);
+                else if (options.Files.Count == 2)
+                    writer.TransformToTextAndSave(options.Files[0], options.Files[1]);
+                else
                 {
                     Console.WriteLine("Usage: Excel2TextDiff -t <excel file> <text file>");
                     Environment.Exit(1);
                 }
-
-                writer.TransformToTextAndSave(options.Files[0], options.Files[1]);
             }
             else
             {

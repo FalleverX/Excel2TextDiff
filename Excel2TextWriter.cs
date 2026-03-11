@@ -1,4 +1,5 @@
 ﻿using ExcelDataReader;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -19,7 +20,11 @@ namespace Excel2TextDiff
                     LoadRows(reader, lines);
                 } while (reader.NextResult());
             }
-            File.WriteAllLines(outputTextFile, lines, System.Text.Encoding.UTF8);
+            if (!string.IsNullOrEmpty(outputTextFile))
+                File.WriteAllLines(outputTextFile, lines, System.Text.Encoding.UTF8);
+            else
+                foreach (var line in lines)
+                    Console.WriteLine(line);
         }
 
         private void LoadRows(IExcelDataReader reader, List<string> lines)
